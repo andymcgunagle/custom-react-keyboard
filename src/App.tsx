@@ -1,122 +1,73 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import styled from 'styled-components';
+import CustomKeyboard from './components/CustomKeyboard';
+import CustomVerticalKeyboard from './components/CustomVerticalKeyboard';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1rem;
+  padding: 1rem;
+`;
 
 const TestInput = styled.input`
-  background-color: #f2f1f1;
+  background-color: #f7f7f7;
   border-radius: 0.25rem;
   border: 0.125rem solid gray;
-  margin: auto;
   padding: 0.5rem;
 `;
 
-const KeyboardWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-
-  background-color: rgba(212, 216, 220, 0.8);  
-  backdrop-filter: blur(5px);
-  
-  padding: 1rem;
-  width: calc(100% - 2rem);
-
-  transform: translateY(0);
-  transition: transform 0.25s ease-out;
-  
-  &.hidden {
-    transform: translateY(110%);
-    visibility: hidden;
-    transition: all 0.25s ease-out;
-  }
-`;
-
-const Keyboard = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  place-items: center;
-  gap: 0.5rem;
-  
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
-
-  &.hidden {
-    gap: 0;
-    visibility: hidden;
-    transition: all 0.25s ease-out 0.275s;
-  }
-`;
-
-const Key = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  padding: 0.5rem 0;
-  width: 100%;
-  
-  background-color: white;
-  border-radius: 0.5rem;
+const Button = styled.button`
+  background-color: #8383fb;
+  border: none;
+  border-radius: 0.25rem;
+  color: white;
   cursor: pointer;
-  
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(1rem, 2.5vw, 2rem);
-  
-  &.hidden {
-    font-size: 0;
-    padding: 0;
-    visibility: hidden;
-    width: 0;
-    transition: all 0.25s ease-out 0.275s;
-  }
+  padding: 0.5rem;
+  width: fit-content;
 `;
 
 export default function App() {
-  const [myInput, setMyInput] = useState('');
-  const [showKeyboard, setShowKeyboard] = useState(false);
-
-  const keys = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '.',
-    '0',
-    'del',
-  ];
+  const [inputValue, setInputValue] = useState('');
+  const [showKeyboard, setShowKeyboard] = useState(true);
+  const [useCustomVerticalKeyboard, setUseCustomVerticalKeyboard] = useState(true);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div>
+    <Wrapper>
       <TestInput
-        placeholder="CLICK ME"
+        placeholder="Focus input..."
         type="text"
-        value={myInput}
-        onChange={(e) => setMyInput(e.target.value)}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
         onFocus={() => setShowKeyboard(true)}
         onBlur={() => setShowKeyboard(false)}
         inputMode="none"
+        ref={inputRef}
       />
-      <KeyboardWrapper className={showKeyboard ? '' : "hidden"}>
-        <Keyboard className={showKeyboard ? '' : "hidden"}>
-          {keys.map(num => {
-            return (
-              <Key
-                key={num}
-                className={showKeyboard ? '' : "hidden"}
-              >
-                {num}
-              </Key>
-            );
-          })}
-        </Keyboard>
-      </KeyboardWrapper>
-    </div>
+
+      <Button
+        onClick={() => setUseCustomVerticalKeyboard(!useCustomVerticalKeyboard)}
+      >
+        Keyboard type: {useCustomVerticalKeyboard ? 'Vertical' : 'Horizontal'}
+      </Button>
+
+      {useCustomVerticalKeyboard ?
+        <CustomVerticalKeyboard
+          inputRef={inputRef}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          showKeyboard={showKeyboard}
+        />
+        :
+        <CustomKeyboard
+          inputRef={inputRef}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          showKeyboard={showKeyboard}
+        />}
+    </Wrapper>
   );
 };
