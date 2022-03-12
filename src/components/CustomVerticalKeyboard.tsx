@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { handleKeyClick } from '../functions/handleKeyClick';
 
-const KeyboardWrapper = styled.div`
+const VerticalKeyboardWrapper = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -22,10 +23,10 @@ const KeyboardWrapper = styled.div`
   }
 `;
 
-const Keyboard = styled.div`
+const VerticalKeyboard = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
 
   &.hidden {
     gap: 0;
@@ -34,16 +35,17 @@ const Keyboard = styled.div`
   }
 `;
 
-const Key = styled.button`
+const VerticalKeyboardKey = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   
-  padding: 0.5rem;
+  padding: 1rem;
   
   background-color: white;
-  border: none;
   border-radius: 0.5rem;
+  border: none;
+  color: black;
   cursor: pointer;
   
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -79,36 +81,27 @@ export default function CustomVerticalKeyboard({
     'del',
   ];
 
-  const handleKeyClick = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    keyValue: string
-  ) => {
-    e.preventDefault();
-    inputRef.current?.focus();
-
-    if (keyValue === 'del') {
-      setInputValue(inputValue.slice(0, -1));
-    } else {
-      setInputValue(inputValue + keyValue);
-    };
-  };
-
   return (
-    <KeyboardWrapper className={showKeyboard ? '' : "hidden"}>
-      <Keyboard className={showKeyboard ? '' : "hidden"}>
+    <VerticalKeyboardWrapper className={showKeyboard ? '' : "hidden"}>
+      <VerticalKeyboard className={showKeyboard ? '' : "hidden"}>
         {verticalKeyboardKeys.map(keyValue => {
           return (
-            <Key
+            <VerticalKeyboardKey
               key={keyValue}
               className={showKeyboard ? '' : "hidden"}
-              onClick={(e) => handleKeyClick(e, keyValue)}
+              onClick={() => handleKeyClick({
+                inputRef,
+                inputValue,
+                keyValue,
+                setInputValue,
+              })}
             >
               {keyValue}
-            </Key>
+            </VerticalKeyboardKey>
           );
         })}
-      </Keyboard>
-    </KeyboardWrapper>
+      </VerticalKeyboard>
+    </VerticalKeyboardWrapper>
   );
 };
 

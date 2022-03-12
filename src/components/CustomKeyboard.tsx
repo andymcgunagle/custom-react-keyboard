@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { handleKeyClick } from '../functions/handleKeyClick';
 
 const KeyboardWrapper = styled.div`
   position: fixed;
@@ -50,6 +51,7 @@ const Key = styled.button`
   background-color: white;
   border: none;
   border-radius: 0.5rem;
+  color: black;
   cursor: pointer;
   
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -86,16 +88,6 @@ export default function CustomKeyboard({
     'del',
   ];
 
-  const handleKeyClick = (keyValue: string) => {
-    inputRef.current?.focus();
-
-    if (keyValue === 'del') {
-      setInputValue(inputValue.slice(0, -1));
-    } else {
-      setInputValue(inputValue + keyValue);
-    };
-  };
-
   return (
     <KeyboardWrapper className={showKeyboard ? '' : "hidden"}>
       <Keyboard className={showKeyboard ? '' : "hidden"}>
@@ -104,7 +96,12 @@ export default function CustomKeyboard({
             <Key
               key={keyValue}
               className={showKeyboard ? '' : "hidden"}
-              onClick={() => handleKeyClick(keyValue)}
+              onClick={() => handleKeyClick({
+                inputRef,
+                inputValue,
+                keyValue,
+                setInputValue,
+              })}
             >
               {keyValue}
             </Key>
