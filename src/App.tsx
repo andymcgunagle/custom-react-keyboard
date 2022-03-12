@@ -75,7 +75,7 @@ const Key = styled.div`
 
 export default function App() {
   const [myInput, setMyInput] = useState('');
-  const [showKeyboard, setShowKeyboard] = useState(true);
+  const [showKeyboard, setShowKeyboard] = useState(false);
 
   const keys = [
     '1',
