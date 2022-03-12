@@ -18,7 +18,8 @@ const KeyboardWrapper = styled.div`
   background-color: rgba(212, 216, 220, 0.8);  
   backdrop-filter: blur(5px);
   
-  width: 100%;
+  padding: 1rem;
+  width: calc(100% - 2rem);
 
   transform: translateY(0);
   transition: transform 0.25s ease-out;
@@ -35,17 +36,16 @@ const Keyboard = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
   place-items: center;
-  gap: 2rem;
-
-  padding: 2rem 1rem;
+  gap: 0.5rem;
+  
+  width: 100%;
+  max-width: 400px;
   margin: auto;
-  width: fit-content;
 
   &.hidden {
     gap: 0;
-    padding: 0;
     visibility: hidden;
-    transition: all 0.25s ease-out 0.26s;
+    transition: all 0.25s ease-out 0.275s;
   }
 `;
 
@@ -54,8 +54,7 @@ const Key = styled.div`
   justify-content: center;
   align-items: center;
   
-  height: 100%;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   width: 100%;
   
   background-color: white;
@@ -67,17 +66,16 @@ const Key = styled.div`
   
   &.hidden {
     font-size: 0;
-    height: 0;
     padding: 0;
     visibility: hidden;
     width: 0;
-    transition: all 0.25s ease-out 0.26s;
+    transition: all 0.25s ease-out 0.275s;
   }
 `;
 
 export default function App() {
   const [myInput, setMyInput] = useState('');
-  const [showKeyboard, setShowKeyboard] = useState(false);
+  const [showKeyboard, setShowKeyboard] = useState(true);
 
   const keys = [
     '1',
