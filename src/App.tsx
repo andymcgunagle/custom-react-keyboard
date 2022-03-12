@@ -102,6 +102,7 @@ export default function App() {
         onChange={(e) => setMyInput(e.target.value)}
         onFocus={() => setShowKeyboard(true)}
         onBlur={() => setShowKeyboard(false)}
+        inputMode="none"
       />
       <KeyboardWrapper className={showKeyboard ? '' : "hidden"}>
         <Keyboard className={showKeyboard ? '' : "hidden"}>
