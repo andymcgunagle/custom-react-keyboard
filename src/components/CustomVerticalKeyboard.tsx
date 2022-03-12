@@ -26,7 +26,7 @@ const VerticalKeyboardWrapper = styled.div`
 const VerticalKeyboard = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 
   &.hidden {
     gap: 0;
@@ -40,7 +40,7 @@ const VerticalKeyboardKey = styled.button`
   justify-content: center;
   align-items: center;
   
-  padding: 1rem;
+  padding: 0.75rem;
   
   background-color: white;
   border-radius: 0.5rem;
