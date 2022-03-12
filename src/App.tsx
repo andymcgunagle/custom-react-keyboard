@@ -35,11 +35,11 @@ const Keyboard = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
   place-items: center;
-  gap: 0.5rem;
+  gap: 2rem;
 
   padding: 2rem 1rem;
-  width: fit-content;
   margin: auto;
+  width: fit-content;
 
   &.hidden {
     gap: 0;
@@ -54,15 +54,16 @@ const Key = styled.div`
   justify-content: center;
   align-items: center;
   
-  padding: 1rem;
-  border-radius: 0.5rem;
-  height: 1.5rem;
-  width: 4rem;
+  height: 100%;
+  padding: 0.5rem;
+  width: 100%;
   
   background-color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
   
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 2.5vw, 2rem);
   
   &.hidden {
     font-size: 0;
@@ -76,7 +77,7 @@ const Key = styled.div`
 
 export default function App() {
   const [myInput, setMyInput] = useState('');
-  const [showKeyboard, setShowKeyboard] = useState(false);
+  const [showKeyboard, setShowKeyboard] = useState(true);
 
   const keys = [
     '1',
@@ -90,7 +91,7 @@ export default function App() {
     '9',
     '.',
     '0',
-    'delete',
+    'del',
   ];
 
   return (
