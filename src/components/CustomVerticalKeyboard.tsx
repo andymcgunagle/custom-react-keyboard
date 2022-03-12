@@ -11,6 +11,8 @@ const VerticalKeyboardWrapper = styled.div`
   
   padding: 1rem;
   height: calc(100% - 2rem);
+  max-height: 100vh;
+  overflow-y: scroll;
   
   transform: translateX(0);
   transition: transform 0.25s ease-out;
@@ -26,7 +28,11 @@ const VerticalKeyboardWrapper = styled.div`
 const VerticalKeyboard = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 0.5rem;
+
+  height: 100%;
+  max-height: 600px;
 
   &.hidden {
     gap: 0;
@@ -40,7 +46,8 @@ const VerticalKeyboardKey = styled.button`
   justify-content: center;
   align-items: center;
   
-  padding: 0.75rem;
+  padding: 0.125rem 0.75rem;
+  height: 100%;
   
   background-color: white;
   border-radius: 0.5rem;
