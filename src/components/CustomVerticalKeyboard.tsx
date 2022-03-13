@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { handleKeyClick } from '../functions/handleKeyClick';
 
 const HorizontalScrollBuffer = styled.div`
@@ -8,7 +9,7 @@ const HorizontalScrollBuffer = styled.div`
   transform: translateX(100%);
 
   height: 100%;
-  width: 25vw;
+  width: 33.3vw;
 
   &.hidden {
     width: 0;
@@ -16,8 +17,14 @@ const HorizontalScrollBuffer = styled.div`
     transition: all 0.25s ease-out;
   }
 
-  @media only screen and (min-device-width: 992px) {
-    display: ${process.env.NODE_ENV !== 'development' && 'none'};
+  /* MOBILE */
+  @media only screen and (max-device-width: 480px){
+    width: 50vw;
+  }
+
+  /* LAPTOPS & DESKTOP */
+  @media only screen and (min-device-width: 1025px) {
+    display: ${process.env.NODE_ENV === 'production' && 'none'};
   }
 `;
 
@@ -44,18 +51,18 @@ const VerticalKeyboardWrapper = styled.div`
     transition: transform 0.25s ease-out, visibility 0.25s ease-out, padding 0.25s ease-out 0.275s;
   }
 
-  @media only screen and (min-device-width: 992px) {
-    display: ${process.env.NODE_ENV !== 'development' && 'none'};
+  /* LAPTOPS & DESKTOP */
+  @media only screen and (min-device-width: 1025px) {
+    display: ${process.env.NODE_ENV === 'production' && 'none'};
   }
 `;
 
 const VerticalKeyboard = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
 
-  height: 100%;
+  height: 50%;
   max-height: 600px;
 
   &.hidden {
@@ -64,8 +71,19 @@ const VerticalKeyboard = styled.div`
     transition: all 0.25s ease-out 0.275s;
   }
 
-  @media only screen and (min-device-width: 992px) {
-    display: ${process.env.NODE_ENV !== 'development' && 'none'};
+  @media (orientation: portrait) {
+    height: 33.3%;
+  }
+
+  /* MOBILE */
+  @media only screen and (max-device-width: 480px){
+    grid-template-columns: 1fr;
+    height: fit-content;
+  }
+
+  /* LAPTOPS & DESKTOP */
+  @media only screen and (min-device-width: 1025px) {
+    display: ${process.env.NODE_ENV === 'production' && 'none'};
   }
 `;
 
@@ -93,8 +111,14 @@ const VerticalKeyboardKey = styled.button`
     transition: all 0.25s ease-out 0.275s;
   }
 
-  @media only screen and (min-device-width: 992px) {
-    display: ${process.env.NODE_ENV !== 'development' && 'none'};
+  /* MOBILE */
+  @media only screen and (max-device-width: 480px){
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* LAPTOPS & DESKTOP */
+  @media only screen and (min-device-width: 1025px) {
+    display: ${process.env.NODE_ENV === 'production' && 'none'};
   }
 `;
 

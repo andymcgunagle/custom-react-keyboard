@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { handleKeyClick } from '../functions/handleKeyClick';
 
 const VerticalScrollBuffer = styled.div`
@@ -14,6 +15,11 @@ const VerticalScrollBuffer = styled.div`
     height: 0;
     visibility: hidden;
     transition: all 0.25s ease-out;
+  }
+
+  /* LAPTOPS & DESKTOP */
+  @media only screen and (min-device-width: 1025px) {
+    display: ${process.env.NODE_ENV === 'production' && 'none'};
   }
 `;
 
@@ -36,6 +42,11 @@ const KeyboardWrapper = styled.div`
     visibility: hidden;
     transition: all 0.25s ease-out;
   }
+
+  /* LAPTOPS & DESKTOP */
+  @media only screen and (min-device-width: 1025px) {
+    display: ${process.env.NODE_ENV === 'production' && 'none'};
+  }
 `;
 
 const Keyboard = styled.div`
@@ -53,6 +64,11 @@ const Keyboard = styled.div`
     gap: 0;
     visibility: hidden;
     transition: all 0.25s ease-out 0.275s;
+  }
+
+  /* LAPTOPS & DESKTOP */
+  @media only screen and (min-device-width: 1025px) {
+    display: ${process.env.NODE_ENV === 'production' && 'none'};
   }
 `;
 
@@ -79,6 +95,11 @@ const Key = styled.button`
     visibility: hidden;
     width: 0;
     transition: all 0.25s ease-out 0.275s;
+  }
+
+  /* LAPTOPS & DESKTOP */
+  @media only screen and (min-device-width: 1025px) {
+    display: ${process.env.NODE_ENV === 'production' && 'none'};
   }
 `;
 
