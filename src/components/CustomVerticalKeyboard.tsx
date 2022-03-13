@@ -29,6 +29,9 @@ const HorizontalScrollBuffer = styled.div`
 `;
 
 const VerticalKeyboardWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  
   position: fixed;
   top: 0;
   right: 0;
