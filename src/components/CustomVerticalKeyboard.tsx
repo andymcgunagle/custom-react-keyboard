@@ -1,6 +1,22 @@
 import styled from 'styled-components';
 import { handleKeyClick } from '../functions/handleKeyClick';
 
+const HorizontalScrollBuffer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+
+  height: 100%;
+  width: 25vw;
+
+  &.hidden {
+    width: 0;
+    visibility: hidden;
+    transition: all 0.25s ease-out;
+  }
+`;
+
 const VerticalKeyboardWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -89,26 +105,29 @@ export default function CustomVerticalKeyboard({
   ];
 
   return (
-    <VerticalKeyboardWrapper className={showKeyboard ? '' : "hidden"}>
-      <VerticalKeyboard className={showKeyboard ? '' : "hidden"}>
-        {verticalKeyboardKeys.map(keyValue => {
-          return (
-            <VerticalKeyboardKey
-              key={keyValue}
-              className={showKeyboard ? '' : "hidden"}
-              onClick={() => handleKeyClick({
-                inputRef,
-                inputValue,
-                keyValue,
-                setInputValue,
-              })}
-            >
-              {keyValue}
-            </VerticalKeyboardKey>
-          );
-        })}
-      </VerticalKeyboard>
-    </VerticalKeyboardWrapper>
+    <>
+      <HorizontalScrollBuffer className={showKeyboard ? '' : "hidden"} />
+      <VerticalKeyboardWrapper className={showKeyboard ? '' : "hidden"}>
+        <VerticalKeyboard className={showKeyboard ? '' : "hidden"}>
+          {verticalKeyboardKeys.map(keyValue => {
+            return (
+              <VerticalKeyboardKey
+                key={keyValue}
+                className={showKeyboard ? '' : "hidden"}
+                onClick={() => handleKeyClick({
+                  inputRef,
+                  inputValue,
+                  keyValue,
+                  setInputValue,
+                })}
+              >
+                {keyValue}
+              </VerticalKeyboardKey>
+            );
+          })}
+        </VerticalKeyboard>
+      </VerticalKeyboardWrapper>
+    </>
   );
 };
 

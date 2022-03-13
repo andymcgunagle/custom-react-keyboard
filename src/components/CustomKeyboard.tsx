@@ -1,18 +1,34 @@
 import styled from 'styled-components';
 import { handleKeyClick } from '../functions/handleKeyClick';
 
+const VerticalScrollBuffer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(100%);
+
+  height: 33.3vh;
+  width: 100%;
+
+  &.hidden {
+    height: 0;
+    visibility: hidden;
+    transition: all 0.25s ease-out;
+  }
+`;
+
 const KeyboardWrapper = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
+  transform: translateY(0);
 
-  background-color: rgba(212, 216, 220, 0.8);  
-  backdrop-filter: blur(5px);
-  
   padding: 1rem 1rem 2rem 1rem;
   width: calc(100% - 2rem);
 
-  transform: translateY(0);
+  background-color: rgba(212, 216, 220, 0.8);  
+  backdrop-filter: blur(5px);
+
   transition: transform 0.25s ease-out;
   
   &.hidden {
@@ -29,9 +45,9 @@ const Keyboard = styled.div`
   place-items: center;
   gap: 0.5rem;
   
-  width: 100%;
-  max-width: 400px;
   margin: auto;
+  max-width: 400px;
+  width: 100%;
 
   &.hidden {
     gap: 0;
@@ -89,26 +105,29 @@ export default function CustomKeyboard({
   ];
 
   return (
-    <KeyboardWrapper className={showKeyboard ? '' : "hidden"}>
-      <Keyboard className={showKeyboard ? '' : "hidden"}>
-        {keys.map(keyValue => {
-          return (
-            <Key
-              key={keyValue}
-              className={showKeyboard ? '' : "hidden"}
-              onClick={() => handleKeyClick({
-                inputRef,
-                inputValue,
-                keyValue,
-                setInputValue,
-              })}
-            >
-              {keyValue}
-            </Key>
-          );
-        })}
-      </Keyboard>
-    </KeyboardWrapper>
+    <>
+      <VerticalScrollBuffer className={showKeyboard ? '' : "hidden"} />
+      <KeyboardWrapper className={showKeyboard ? '' : "hidden"}>
+        <Keyboard className={showKeyboard ? '' : "hidden"}>
+          {keys.map(keyValue => {
+            return (
+              <Key
+                key={keyValue}
+                className={showKeyboard ? '' : "hidden"}
+                onClick={() => handleKeyClick({
+                  inputRef,
+                  inputValue,
+                  keyValue,
+                  setInputValue,
+                })}
+              >
+                {keyValue}
+              </Key>
+            );
+          })}
+        </Keyboard>
+      </KeyboardWrapper>
+    </>
   );
 };
 
