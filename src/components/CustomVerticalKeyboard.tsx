@@ -15,6 +15,10 @@ const HorizontalScrollBuffer = styled.div`
     visibility: hidden;
     transition: all 0.25s ease-out;
   }
+
+  @media only screen and (min-device-width: 992px) {
+    display: ${process.env.NODE_ENV !== 'development' && 'none'};
+  }
 `;
 
 const VerticalKeyboardWrapper = styled.div`
@@ -39,6 +43,10 @@ const VerticalKeyboardWrapper = styled.div`
     visibility: hidden;
     transition: transform 0.25s ease-out, visibility 0.25s ease-out, padding 0.25s ease-out 0.275s;
   }
+
+  @media only screen and (min-device-width: 992px) {
+    display: ${process.env.NODE_ENV !== 'development' && 'none'};
+  }
 `;
 
 const VerticalKeyboard = styled.div`
@@ -54,6 +62,10 @@ const VerticalKeyboard = styled.div`
     gap: 0;
     visibility: hidden;
     transition: all 0.25s ease-out 0.275s;
+  }
+
+  @media only screen and (min-device-width: 992px) {
+    display: ${process.env.NODE_ENV !== 'development' && 'none'};
   }
 `;
 
@@ -79,6 +91,10 @@ const VerticalKeyboardKey = styled.button`
     padding: 0;
     visibility: hidden;
     transition: all 0.25s ease-out 0.275s;
+  }
+
+  @media only screen and (min-device-width: 992px) {
+    display: ${process.env.NODE_ENV !== 'development' && 'none'};
   }
 `;
 
