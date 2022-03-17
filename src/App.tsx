@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
 
 import styled from 'styled-components';
+
+import useCustomKeyboard from './hooks/useCustomKeyboard';
+
 import CustomKeyboard from './components/CustomKeyboard';
-import CustomVerticalKeyboard from './components/CustomVerticalKeyboard';
-import useOnScreen from './hooks/useOnScreen';
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,25 +21,17 @@ const TestInput = styled.input`
   padding: 0.5rem;
 `;
 
-const Button = styled.button`
-  background-color: #8383fb;
-  border: none;
-  border-radius: 0.25rem;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  width: fit-content;
-`;
-
 export default function App() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [inputValue, setInputValue] = useState('');
-  const [showKeyboard, setShowKeyboard] = useState(false);
-  // const [showKeyboard, setShowKeyboard] = useState(process.env.NODE_ENV === 'development');
-  const [useCustomVerticalKeyboard, setUseCustomVerticalKeyboard] = useState(false);
 
-  const { customKeyboardRef, isCustomKeyboardVisible } = useOnScreen();
+  const {
+    customKeyboardRef,
+    isOnScreen,
+    showKeyboard,
+    setShowKeyboard,
+  } = useCustomKeyboard();
 
   return (
     <Wrapper>
@@ -49,31 +42,17 @@ export default function App() {
         onChange={(e) => setInputValue(e.target.value)}
         onFocus={() => setShowKeyboard(true)}
         onBlur={() => setShowKeyboard(false)}
-        inputMode={isCustomKeyboardVisible ? "none" : "numeric"}
+        inputMode={isOnScreen ? "none" : "numeric"}
         ref={inputRef}
       />
 
-      <Button
-        onClick={() => setUseCustomVerticalKeyboard(!useCustomVerticalKeyboard)}
-      >
-        Keyboard type: {useCustomVerticalKeyboard ? 'Vertical' : 'Horizontal'}
-      </Button>
-
-      {useCustomVerticalKeyboard ?
-        <CustomVerticalKeyboard
-          inputRef={inputRef}
-          inputValue={inputValue}
-          setInputValue={setInputValue}
-          showKeyboard={showKeyboard}
-        />
-        :
-        <CustomKeyboard
-          inputRef={inputRef}
-          inputValue={inputValue}
-          setInputValue={setInputValue}
-          showKeyboard={showKeyboard}
-          customKeyboardRef={customKeyboardRef}
-        />}
+      <CustomKeyboard
+        inputRef={inputRef}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        showKeyboard={showKeyboard}
+        customKeyboardRef={customKeyboardRef}
+      />
     </Wrapper>
   );
 };
