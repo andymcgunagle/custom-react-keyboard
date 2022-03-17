@@ -32,7 +32,7 @@ const Button = styled.button`
 export default function App() {
   const [inputValue, setInputValue] = useState('');
   const [showKeyboard, setShowKeyboard] = useState(process.env.NODE_ENV === 'development');
-  const [useCustomVerticalKeyboard, setUseCustomVerticalKeyboard] = useState(true);
+  const [useCustomVerticalKeyboard, setUseCustomVerticalKeyboard] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
