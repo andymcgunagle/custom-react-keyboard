@@ -1,8 +1,6 @@
-import { useRef } from 'react';
 import styled from 'styled-components';
 
 import { handleKeyClick } from '../functions/handleKeyClick';
-import useOnScreen from '../hooks/useOnScreen';
 
 const VerticalScrollBuffer = styled.div`
   position: absolute;
