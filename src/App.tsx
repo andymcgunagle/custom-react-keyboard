@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import CustomKeyboard from './components/CustomKeyboard';
 import CustomVerticalKeyboard from './components/CustomVerticalKeyboard';
+import useOnScreen from './hooks/useOnScreen';
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,10 +31,14 @@ const Button = styled.button`
 `;
 
 export default function App() {
-  const [inputValue, setInputValue] = useState('');
-  const [showKeyboard, setShowKeyboard] = useState(process.env.NODE_ENV === 'development');
-  const [useCustomVerticalKeyboard, setUseCustomVerticalKeyboard] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const [inputValue, setInputValue] = useState('');
+  const [showKeyboard, setShowKeyboard] = useState(false);
+  // const [showKeyboard, setShowKeyboard] = useState(process.env.NODE_ENV === 'development');
+  const [useCustomVerticalKeyboard, setUseCustomVerticalKeyboard] = useState(false);
+
+  const { customKeyboardRef, isCustomKeyboardVisible } = useOnScreen();
 
   return (
     <Wrapper>
@@ -44,7 +49,7 @@ export default function App() {
         onChange={(e) => setInputValue(e.target.value)}
         onFocus={() => setShowKeyboard(true)}
         onBlur={() => setShowKeyboard(false)}
-        inputMode="none"
+        inputMode={isCustomKeyboardVisible ? "none" : "numeric"}
         ref={inputRef}
       />
 
@@ -67,6 +72,7 @@ export default function App() {
           inputValue={inputValue}
           setInputValue={setInputValue}
           showKeyboard={showKeyboard}
+          customKeyboardRef={customKeyboardRef}
         />}
     </Wrapper>
   );

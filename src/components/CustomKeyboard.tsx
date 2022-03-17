@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
 
 import { handleKeyClick } from '../functions/handleKeyClick';
+import useOnScreen from '../hooks/useOnScreen';
 
 const VerticalScrollBuffer = styled.div`
   position: absolute;
@@ -104,6 +106,7 @@ const Key = styled.button`
 `;
 
 export default function CustomKeyboard({
+  customKeyboardRef,
   inputRef,
   inputValue,
   setInputValue,
@@ -128,7 +131,7 @@ export default function CustomKeyboard({
   return (
     <>
       <VerticalScrollBuffer className={showKeyboard ? '' : "hidden"} />
-      <KeyboardWrapper className={showKeyboard ? '' : "hidden"}>
+      <KeyboardWrapper ref={customKeyboardRef} className={showKeyboard ? '' : "hidden"}>
         <Keyboard className={showKeyboard ? '' : "hidden"}>
           {keys.map(keyValue => {
             return (
@@ -153,6 +156,7 @@ export default function CustomKeyboard({
 };
 
 interface CustomKeyboardProps {
+  customKeyboardRef: React.RefObject<HTMLDivElement>,
   inputRef: React.RefObject<HTMLInputElement>,
   inputValue: string,
   setInputValue: React.Dispatch<React.SetStateAction<string>>,
