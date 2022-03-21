@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -22,13 +22,14 @@ const TestInput = styled.input`
 `;
 
 export default function App() {
+  const [inputValue, setInputValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [inputValue, setInputValue] = useState('');
-
   const {
-    customKeyboardRef,
-    isOnScreen,
+    handleBlur,
+    handleFocus,
+    inputModeValue,
+    setInputModeValue,
     showKeyboard,
     setShowKeyboard,
   } = useCustomKeyboard();
@@ -36,22 +37,23 @@ export default function App() {
   return (
     <Wrapper>
       <TestInput
+        inputMode={inputModeValue}
+        onBlur={handleBlur}
+        onChange={e => setInputValue(e.target.value)}
+        onFocus={handleFocus}
         placeholder="Focus input..."
+        ref={inputRef}
         type="text"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onFocus={() => setShowKeyboard(true)}
-        onBlur={() => setShowKeyboard(false)}
-        inputMode={isOnScreen ? "none" : "numeric"}
-        ref={inputRef}
       />
 
       <CustomKeyboard
         inputRef={inputRef}
         inputValue={inputValue}
+        setInputModeValue={setInputModeValue}
         setInputValue={setInputValue}
+        setShowKeyboard={setShowKeyboard}
         showKeyboard={showKeyboard}
-        customKeyboardRef={customKeyboardRef}
       />
     </Wrapper>
   );

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { handleKeyClick } from '../functions/handleKeyClick';
-
 const VerticalScrollBuffer = styled.div`
   position: absolute;
   bottom: 0;
@@ -29,13 +27,11 @@ const KeyboardWrapper = styled.div`
   left: 0;
   transform: translateY(0);
 
-  padding: 1rem 1rem 2rem 1rem;
-  width: calc(100% - 2rem);
-
-  background-color: rgba(212, 216, 220, 0.8);  
   backdrop-filter: blur(5px);
-
+  background-color: rgba(212, 216, 220, 0.8);  
+  padding: 1rem 1rem 2rem 1rem;
   transition: transform 0.25s ease-out;
+  width: calc(100% - 2rem);
   
   &.hidden {
     transform: translateY(100%);
@@ -58,6 +54,7 @@ const Keyboard = styled.div`
   
   margin: auto;
   max-width: 400px;
+  position: relative;
   width: 100%;
 
   &.hidden {
@@ -77,17 +74,15 @@ const Key = styled.button`
   justify-content: center;
   align-items: center;
   
-  padding: 0.5rem 0;
-  width: 100%;
-  
   background-color: white;
-  border: none;
   border-radius: 0.5rem;
+  border: none;
   color: black;
   cursor: pointer;
-  
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: clamp(1rem, 2.5vw, 2rem);
+  padding: 0.5rem 0;
+  width: 100%;
   
   &.hidden {
     font-size: 0;
@@ -97,6 +92,15 @@ const Key = styled.button`
     transition: all 0.25s ease-out 0.275s;
   }
 
+  &.show-system-keyboard {
+    position: absolute;
+    right: -4.75rem;
+    top: 0;
+
+    padding: 0.5rem 1rem;
+    width: fit-content;
+  }
+
   /* LAPTOPS & DESKTOP */
   @media only screen and (min-device-width: 1025px) {
     display: ${process.env.NODE_ENV === 'production' && 'none'};
@@ -104,10 +108,11 @@ const Key = styled.button`
 `;
 
 export default function CustomKeyboard({
-  customKeyboardRef,
   inputRef,
   inputValue,
+  setInputModeValue,
   setInputValue,
+  setShowKeyboard,
   showKeyboard,
 }: CustomKeyboardProps) {
 
@@ -124,23 +129,54 @@ export default function CustomKeyboard({
     '.',
     '0',
     'del',
+    '⌨️', // keyboard emoji as placeholder - use icon in production?
   ];
+
+  const handleKeyClick = ({
+    inputRef,
+    inputValue,
+    keyValue,
+    setInputModeValue,
+    setInputValue,
+    setShowKeyboard,
+  }: HandleKeyClickArgs) => {
+    inputRef.current?.focus();
+
+    if (inputValue === '' && keyValue === 'del') return;
+
+    if (keyValue === '⌨️') {
+      setInputModeValue("numeric");
+      setShowKeyboard(false);
+      return;
+    };
+
+    if (keyValue === 'del') {
+      setInputValue(inputValue.slice(0, -1));
+      return;
+    };
+
+    setInputValue(inputValue + keyValue);
+  };
 
   return (
     <>
       <VerticalScrollBuffer className={showKeyboard ? '' : "hidden"} />
-      <KeyboardWrapper ref={customKeyboardRef} className={showKeyboard ? '' : "hidden"}>
+      <KeyboardWrapper
+        className={showKeyboard ? '' : "hidden"}
+      >
         <Keyboard className={showKeyboard ? '' : "hidden"}>
           {keys.map(keyValue => {
             return (
               <Key
                 key={keyValue}
-                className={showKeyboard ? '' : "hidden"}
+                className={`${keyValue === '⌨️' && "show-system-keyboard"} ${!showKeyboard && "hidden"}`}
                 onClick={() => handleKeyClick({
                   inputRef,
                   inputValue,
                   keyValue,
+                  setInputModeValue,
                   setInputValue,
+                  setShowKeyboard,
                 })}
               >
                 {keyValue}
@@ -154,9 +190,19 @@ export default function CustomKeyboard({
 };
 
 interface CustomKeyboardProps {
-  customKeyboardRef: React.RefObject<HTMLDivElement>,
   inputRef: React.RefObject<HTMLInputElement>,
   inputValue: string,
+  setInputModeValue: React.Dispatch<React.SetStateAction<"none" | "numeric">>,
   setInputValue: React.Dispatch<React.SetStateAction<string>>,
+  setShowKeyboard: React.Dispatch<React.SetStateAction<boolean>>,
   showKeyboard: boolean,
+};
+
+interface HandleKeyClickArgs {
+  inputRef: React.RefObject<HTMLInputElement>,
+  inputValue: string,
+  keyValue: string,
+  setInputModeValue: React.Dispatch<React.SetStateAction<"none" | "numeric">>,
+  setInputValue: React.Dispatch<React.SetStateAction<string>>,
+  setShowKeyboard: React.Dispatch<React.SetStateAction<boolean>>,
 };

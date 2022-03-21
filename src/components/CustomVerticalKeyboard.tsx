@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { handleKeyClick } from '../functions/handleKeyClick';
-
 const HorizontalScrollBuffer = styled.div`
   position: absolute;
   top: 0;
@@ -129,6 +127,7 @@ export default function CustomVerticalKeyboard({
   inputRef,
   inputValue,
   setInputValue,
+  setShowKeyboard,
   showKeyboard,
 }: CustomVerticalKeyboardProps) {
 
@@ -157,12 +156,13 @@ export default function CustomVerticalKeyboard({
               <VerticalKeyboardKey
                 key={keyValue}
                 className={showKeyboard ? '' : "hidden"}
-                onClick={() => handleKeyClick({
-                  inputRef,
-                  inputValue,
-                  keyValue,
-                  setInputValue,
-                })}
+              // onClick={() => handleKeyClick({
+              //   inputRef,
+              //   inputValue,
+              //   keyValue,
+              //   setInputValue,
+              //   setShowKeyboard,
+              // })}
               >
                 {keyValue}
               </VerticalKeyboardKey>
@@ -178,5 +178,6 @@ interface CustomVerticalKeyboardProps {
   inputRef: React.RefObject<HTMLInputElement>,
   inputValue: string,
   setInputValue: React.Dispatch<React.SetStateAction<string>>,
+  setShowKeyboard: React.Dispatch<React.SetStateAction<boolean>>,
   showKeyboard: boolean,
 };
