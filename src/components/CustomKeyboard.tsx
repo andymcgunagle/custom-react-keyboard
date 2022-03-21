@@ -38,7 +38,7 @@ const KeyboardWrapper = styled.div`
   transition: transform 0.25s ease-out;
   
   &.hidden {
-    transform: translateY(110%);
+    transform: translateY(100%);
     visibility: hidden;
     transition: all 0.25s ease-out;
   }
