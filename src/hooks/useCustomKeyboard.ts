@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function useCustomKeyboard() {
-  const [inputModeValue, setInputModeValue] = useState<"none" | "numeric">("none");
+  const [inputModeValue, setInputModeValue] = useState<"none" | "text">("none");
   const [showKeyboard, setShowKeyboard] = useState(false);
 
   const handleFocus = () => {

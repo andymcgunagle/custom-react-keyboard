@@ -94,7 +94,7 @@ const Key = styled.button`
 
   &.show-system-keyboard {
     position: absolute;
-    right: -4.75rem;
+    right: -6.25rem;
     top: 0;
 
     padding: 0.5rem 1rem;
@@ -129,7 +129,7 @@ export default function CustomKeyboard({
     '.',
     '0',
     'del',
-    '⌨️', // keyboard emoji as placeholder - use icon in production?
+    'ABC', // keyboard emoji as placeholder - use icon in production?
   ];
 
   const handleKeyClick = ({
@@ -144,8 +144,8 @@ export default function CustomKeyboard({
 
     if (inputValue === '' && keyValue === 'del') return;
 
-    if (keyValue === '⌨️') {
-      setInputModeValue("numeric");
+    if (keyValue === 'ABC') {
+      setInputModeValue("text");
       setShowKeyboard(false);
       return;
     };
@@ -169,7 +169,7 @@ export default function CustomKeyboard({
             return (
               <Key
                 key={keyValue}
-                className={`${keyValue === '⌨️' && "show-system-keyboard"} ${!showKeyboard && "hidden"}`}
+                className={`${keyValue === 'ABC' && "show-system-keyboard"} ${!showKeyboard && "hidden"}`}
                 onClick={() => handleKeyClick({
                   inputRef,
                   inputValue,
@@ -192,7 +192,7 @@ export default function CustomKeyboard({
 interface CustomKeyboardProps {
   inputRef: React.RefObject<HTMLInputElement>,
   inputValue: string,
-  setInputModeValue: React.Dispatch<React.SetStateAction<"none" | "numeric">>,
+  setInputModeValue: React.Dispatch<React.SetStateAction<"none" | "text">>,
   setInputValue: React.Dispatch<React.SetStateAction<string>>,
   setShowKeyboard: React.Dispatch<React.SetStateAction<boolean>>,
   showKeyboard: boolean,
@@ -202,7 +202,7 @@ interface HandleKeyClickArgs {
   inputRef: React.RefObject<HTMLInputElement>,
   inputValue: string,
   keyValue: string,
-  setInputModeValue: React.Dispatch<React.SetStateAction<"none" | "numeric">>,
+  setInputModeValue: React.Dispatch<React.SetStateAction<"none" | "text">>,
   setInputValue: React.Dispatch<React.SetStateAction<string>>,
   setShowKeyboard: React.Dispatch<React.SetStateAction<boolean>>,
 };
