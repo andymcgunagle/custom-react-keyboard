@@ -1,12 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const VerticalScrollBuffer = styled.div`
+export const VerticalScrollBuffer = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
 
-  background-color: red;
+  background-color: transparent;
   height: 33.3vh;
   transform: translateY(100%);
 
@@ -22,7 +22,7 @@ const VerticalScrollBuffer = styled.div`
   }
 `;
 
-const KeyboardWrapper = styled.div`
+export const KeyboardWrapper = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -46,7 +46,7 @@ const KeyboardWrapper = styled.div`
   }
 `;
 
-const Keyboard = styled.div`
+export const Keyboard = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -67,7 +67,7 @@ const Keyboard = styled.div`
   }
 `;
 
-const Key = styled.button`  
+export const Key = styled.button`  
   background-color: white;
   border-radius: 0.5rem;
   border: none;
@@ -93,43 +93,3 @@ const Key = styled.button`
     display: ${process.env.NODE_ENV === 'production' && 'none'};
   }
 `;
-
-export default function NewCustomKeyboard() {
-
-  const keys = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '.',
-    '0',
-    'del',
-    'ABC',
-  ];
-
-  return (
-    <>
-      <VerticalScrollBuffer className={`custom-keyboard hidden`} />
-      <KeyboardWrapper className={`custom-keyboard hidden`}>
-        <Keyboard className={`custom-keyboard hidden`}>
-          {keys.map(keyValue => {
-            return (
-              <Key
-                key={keyValue}
-                data-custom-key-value={keyValue}
-                className={`custom-keyboard hidden ${keyValue === 'ABC' && "show-system-keyboard"}`}
-              >
-                {keyValue}
-              </Key>
-            );
-          })}
-        </Keyboard>
-      </KeyboardWrapper>
-    </>
-  );
-};
