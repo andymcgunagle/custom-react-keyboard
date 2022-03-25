@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -25,10 +25,10 @@ export default function App() {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
 
+  // ISSUE: Custom keyboard input not followed by system keyboard input is not saved into state. Need to trigger the setState function somehow when a custom keyboard button is clicked?
+
   return (
     <Wrapper>
-      <h1>IT HAS BEEN DONE! (Hopefully...)</h1>
-
       <StyledInput
         onBlur={() => hideKeyboard()}
         onFocus={() => showKeyboard()}

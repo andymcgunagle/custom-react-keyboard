@@ -34,14 +34,14 @@ export function useCustomKeyboard() {
 
       const { customKeyValue } = (e.target as HTMLElement).dataset;
 
-      // Show the system keyboard
+      // If ABC button clicked, show the system keyboard
       if (customKeyValue === 'ABC') {
         inputRef.current.inputMode = 'text';
         hideKeyboard();
         return;
       };
 
-      // Delete the last character
+      // If del button clicked, delete the last character
       if (customKeyValue === 'del') {
         inputRef.current.value = inputRef.current?.value.slice(0, -1);
         return;

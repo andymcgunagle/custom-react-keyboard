@@ -30,7 +30,7 @@ export const KeyboardWrapper = styled.div`
   
   backdrop-filter: blur(5px);
   background-color: rgba(212, 216, 220, 0.8);  
-  padding: 1rem 0 2rem 0;
+  padding: 1rem 0 1.75rem 0;
   transform: translateY(0);
   transition: transform 0.25s ease-out;
   
@@ -54,6 +54,7 @@ export const Keyboard = styled.div`
   
   margin: 0 auto;
   max-width: 400px;
+  padding: 0 0.5rem;
 
   &.hidden {
     gap: 0;
@@ -75,7 +76,7 @@ export const Key = styled.button`
   cursor: pointer;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: clamp(1rem, 2.5vw, 2rem);
-  padding: 0.25rem 0;
+  padding: 0.5rem 0;
   
   &.hidden {
     font-size: 0;
